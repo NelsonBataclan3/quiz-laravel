@@ -167,7 +167,7 @@ return [
          * Package Service Providers...
          */
 
-        //
+        GeniusTS\Roles\RolesServiceProvider::class,
 
         /*
          * Application Service Providers...
