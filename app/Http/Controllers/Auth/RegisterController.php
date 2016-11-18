@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Organization;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -48,7 +49,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'first_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -62,10 +63,33 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // $organization_id = 
+            // Organization::where('name', '=', $data['organization_id'])->first()->id;
+
         return User::create([
-            'name' => $data['name'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'gaurdian_name' => $data['gaurdian_name'],
             'email' => $data['email'],
+            'phone_number' => $data['phone_number'],
+            'address' => $data['address'],
+            'city' => $data['city'],
+            'pincode' => $data['pincode'],
+            'state' => $data['state'],
+            'organization_id' => $data['organization_id'],//$organization_id,
             'password' => bcrypt($data['password']),
+        ]);
+    }
+
+    /**
+     * [showRegistrationForm description]
+     * @return [type] [description]
+     */
+    public function showRegistrationForm()
+    {
+        $organizations = Organization::all();
+        return view('auth.register', [
+            'organizations' => $organizations
         ]);
     }
 }

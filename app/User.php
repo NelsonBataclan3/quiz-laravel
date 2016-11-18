@@ -22,7 +22,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'last_name', 'gaurdian_name', 
+        'email', 'phone_number', 'address', 
+        'city', 'state', 'pincode', 'password',
+        'organization_id'
     ];
 
     /**
@@ -33,4 +36,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Relationship: Belongs to Organization
+     */
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
+    }
 }
